@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://toshiyukihina.github.io/sitemap.xml 
