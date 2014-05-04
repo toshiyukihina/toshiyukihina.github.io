@@ -12,19 +12,19 @@ How to create a rails new project without tainting the global rails environment.
 
 # Environment
 
-#### OS
+## OS
 
 Linux ubuntu 3.13.0-24-generic #46-Ubuntu SMP Thu Apr 10 19:11:08 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
 
-#### Ruby
+## Ruby
 
 1.9.3p545
 
-#### Ruby on Rails
+## Ruby on Rails
 
 4.1.0
 
-#### rbenv
+## rbenv
 
 rbenv 0.4.0-97-gfe0b243
 
