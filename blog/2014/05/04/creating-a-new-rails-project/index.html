@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Creating a New Rails Project - thina</title>
+  <meta name="author" content="thina">
+
+  
+  <meta name="description" content="How to create a rails new project without tainting the global rails environment. Environment OS Linux ubuntu 3.13.0-24-generic #46-Ubuntu SMP Thu Apr &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://toshiyukihina.github.io/blog/2014/05/04/creating-a-new-rails-project">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="thina" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">thina</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:toshiyukihina.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Creating a New Rails Project</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-04T14:02:37+09:00" pubdate data-updated="true">May 4<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>How to create a rails new project without tainting the global rails environment.</p>
+
+<!-- more -->
+
+
+<h2>Environment</h2>
+
+<h3>OS</h3>
+
+<p>Linux ubuntu 3.13.0-24-generic #46-Ubuntu SMP Thu Apr 10 19:11:08 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux</p>
+
+<h3>Ruby</h3>
+
+<p>1.9.3p545</p>
+
+<h3>Ruby on Rails</h3>
+
+<p>4.1.0</p>
+
+<h3>rbenv</h3>
+
+<p>rbenv 0.4.0-97-gfe0b243</p>
+
+<h2>Prerequisite</h2>
+
+<p>You must install <code>bundler</code> at least to your ruby environment.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rbenv <span class="nb">exec </span>gem install bundler
+</span><span class='line'><span class="nv">$ </span>rbenv rehash
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Steps</h2>
+
+<h3>Create a working directory</h3>
+
+<p>Create a temporary directory for setup the rails environment. This enviroment will be deleted after committing and pushing to your repository.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mkdir work
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>work
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Create a &lsquo;Gemfile&rsquo;</h3>
+
+<p>Just only &lsquo;rails&rsquo; in the &lsquo;Gemfile&rsquo;.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>cat <span class="s">&lt;&lt; EOS &gt; Gemfile</span>
+</span><span class='line'><span class="s">source &quot;http://rubygems.org&quot;</span>
+</span><span class='line'><span class="s">gem &quot;rails&quot;, &quot;4.1.0&quot;</span>
+</span><span class='line'><span class="s">EOS</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Install Ruby on Ralis</h3>
+
+<p>Install the ruby on rails to <code>vendor/bundle</code> directory temporarily.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle install --path vendor/bundle
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Create a new rails project</h3>
+
+<p><code>&lt;project&gt;</code> is a new rails project name.
+<strong>Don&rsquo;t forget</strong> to set <code>--skip-bundle</code> option, or all gems will be installed global location.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rails new &lt;project&gt; --skip-bundle
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Tidy some temporary files and directories</h3>
+
+<p>Delete all unnecessary files and directories.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm -f Gemfile
+</span><span class='line'><span class="nv">$ </span>rm -f Gemfile.lock
+</span><span class='line'><span class="nv">$ </span>rm -rf vendor/bundle/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Setup the rails environment</h3>
+
+<p>Install gems depend on the Ruby on Rails. A new and official &lsquo;Gemfile&rsquo; is created on <code>bundle exec rails new &lt;project&gt; --skip-bundle</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> &lt;project&gt;
+</span><span class='line'><span class="nv">$ </span>bundle install --path vendor/bundle
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Check if the rails server starts successfully</h3>
+
+<p>Run <code>rails server</code> command and access to <code>http://localhost:3000</code> with your browser.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rails s
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Update &lsquo;.gitignore&rsquo;</h3>
+
+<p>Add <code>/vendor/bundle</code> to <code>.gitignore</code> file.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;/vendor/bundle&#39;</span> &gt;&gt; .gitignore
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Finally push a new project to your repository</h3>
+
+<p><a href="https://github.com/">Github</a>? <a href="https://bitbucket.org/">Bitbucket</a>? Do what you want.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">thina</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-04T14:02:37+09:00" pubdate data-updated="true">May 4<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cheat-sheet/'>cheat-sheet</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://toshiyukihina.github.io/blog/2014/05/04/creating-a-new-rails-project/" data-via="" data-counturl="http://toshiyukihina.github.io/blog/2014/05/04/creating-a-new-rails-project/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/05/05/using-rbenv-sudo/" title="Next Post: sudoセッションで 'bundle exec' を実行する">sudoセッションで 'bundle exec' を実行する &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/05/using-rbenv-sudo/">Sudoセッションで 'Bundle Exec' を実行する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/04/creating-a-new-rails-project/">Creating a New Rails Project</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Tag Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/bundler' style='font-size: 130.0%'>bundler(1)</a> <a href='/blog/categories/cheat-sheet' style='font-size: 130.0%'>cheat-sheet(1)</a> <a href='/blog/categories/github' style='font-size: 130.0%'>github(1)</a> <a href='/blog/categories/hub' style='font-size: 130.0%'>hub(1)</a> <a href='/blog/categories/rails' style='font-size: 130.0%'>rails(1)</a> <a href='/blog/categories/rbenv' style='font-size: 130.0%'>rbenv(1)</a> <a href='/blog/categories/ruby' style='font-size: 160.0%'>ruby(2)</a> </span>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/bundler/'>bundler (1)</a></li><li><a href='/blog/categories/cheat-sheet/'>cheat-sheet (1)</a></li><li><a href='/blog/categories/github/'>github (1)</a></li><li><a href='/blog/categories/hub/'>hub (1)</a></li><li><a href='/blog/categories/rails/'>rails (1)</a></li><li><a href='/blog/categories/rbenv/'>rbenv (1)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li></ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/toshiyukihina">@toshiyukihina</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'toshiyukihina',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - thina -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

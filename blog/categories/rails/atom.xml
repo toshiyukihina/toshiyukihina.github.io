@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rails | thina]]></title>
+  <link href="http://toshiyukihina.github.io/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://toshiyukihina.github.io/"/>
+  <updated>2014-12-30T00:58:18+09:00</updated>
+  <id>http://toshiyukihina.github.io/</id>
+  <author>
+    <name><![CDATA[thina]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Creating a New Rails Project]]></title>
+    <link href="http://toshiyukihina.github.io/blog/2014/05/04/creating-a-new-rails-project/"/>
+    <updated>2014-05-04T14:02:37+09:00</updated>
+    <id>http://toshiyukihina.github.io/blog/2014/05/04/creating-a-new-rails-project</id>
+    <content type="html"><![CDATA[<p>How to create a rails new project without tainting the global rails environment.</p>
+
+<!-- more -->
+
+
+<h2>Environment</h2>
+
+<h3>OS</h3>
+
+<p>Linux ubuntu 3.13.0-24-generic #46-Ubuntu SMP Thu Apr 10 19:11:08 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux</p>
+
+<h3>Ruby</h3>
+
+<p>1.9.3p545</p>
+
+<h3>Ruby on Rails</h3>
+
+<p>4.1.0</p>
+
+<h3>rbenv</h3>
+
+<p>rbenv 0.4.0-97-gfe0b243</p>
+
+<h2>Prerequisite</h2>
+
+<p>You must install <code>bundler</code> at least to your ruby environment.</p>
+
+<p><code>bash
+$ rbenv exec gem install bundler
+$ rbenv rehash
+</code></p>
+
+<h2>Steps</h2>
+
+<h3>Create a working directory</h3>
+
+<p>Create a temporary directory for setup the rails environment. This enviroment will be deleted after committing and pushing to your repository.</p>
+
+<p><code>
+$ mkdir work
+$ cd work
+</code></p>
+
+<h3>Create a &lsquo;Gemfile&rsquo;</h3>
+
+<p>Just only &lsquo;rails&rsquo; in the &lsquo;Gemfile&rsquo;.</p>
+
+<p><code>
+$ cat &lt;&lt; EOS &gt; Gemfile
+source "http://rubygems.org"
+gem "rails", "4.1.0"
+EOS
+</code></p>
+
+<h3>Install Ruby on Ralis</h3>
+
+<p>Install the ruby on rails to <code>vendor/bundle</code> directory temporarily.</p>
+
+<p><code>
+$ bundle install --path vendor/bundle
+</code></p>
+
+<h3>Create a new rails project</h3>
+
+<p><code>&lt;project&gt;</code> is a new rails project name.
+<strong>Don&rsquo;t forget</strong> to set <code>--skip-bundle</code> option, or all gems will be installed global location.</p>
+
+<p><code>
+$ bundle exec rails new &lt;project&gt; --skip-bundle
+</code></p>
+
+<h3>Tidy some temporary files and directories</h3>
+
+<p>Delete all unnecessary files and directories.</p>
+
+<p><code>
+$ rm -f Gemfile
+$ rm -f Gemfile.lock
+$ rm -rf vendor/bundle/
+</code></p>
+
+<h3>Setup the rails environment</h3>
+
+<p>Install gems depend on the Ruby on Rails. A new and official &lsquo;Gemfile&rsquo; is created on <code>bundle exec rails new &lt;project&gt; --skip-bundle</code>.</p>
+
+<p><code>
+$ cd &lt;project&gt;
+$ bundle install --path vendor/bundle
+</code></p>
+
+<h3>Check if the rails server starts successfully</h3>
+
+<p>Run <code>rails server</code> command and access to <code>http://localhost:3000</code> with your browser.</p>
+
+<p><code>
+$ bundle exec rails s
+</code></p>
+
+<h3>Update &lsquo;.gitignore&rsquo;</h3>
+
+<p>Add <code>/vendor/bundle</code> to <code>.gitignore</code> file.</p>
+
+<p><code>
+$ echo '/vendor/bundle' &gt;&gt; .gitignore
+</code></p>
+
+<h3>Finally push a new project to your repository</h3>
+
+<p><a href="https://github.com/">Github</a>? <a href="https://bitbucket.org/">Bitbucket</a>? Do what you want.</p>
+]]></content>
+  </entry>
+  
+</feed>

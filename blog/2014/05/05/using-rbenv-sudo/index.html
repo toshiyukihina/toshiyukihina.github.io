@@ -5,11 +5,17 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>thina</title>
+  <title>Sudoセッションで 'Bundle Exec' を実行する - thina</title>
   <meta name="author" content="thina">
 
   
-  <meta name="description" content="sudoセッションでコマンドを実行するためには、rbenv-sudoを使えばよい。 ">
+  <meta name="description" content="sudoセッションでコマンドを実行するためには、rbenv-sudoを使えばよい。 事象 hubをLinux環境(Ubuntu 14.04 LTS)にインストールした際に、以下のエラーが出た。
+/usr/local/binにインストールするため、root権限が必要である。 1
+2
+3
+4
+5
+6 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://toshiyukihina.github.io">
+  <link rel="canonical" href="http://toshiyukihina.github.io/blog/2014/05/05/using-rbenv-sudo">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="thina" type="application/atom+xml">
@@ -61,15 +67,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/05/05/using-rbenv-sudo/">Sudoセッションで &#8216;Bundle Exec&#8217; を実行する</a></h1>
+      <h1 class="entry-title">Sudoセッションで 'Bundle Exec' を実行する</h1>
     
     
       <p class="meta">
@@ -92,29 +95,77 @@
   </header>
 
 
-  <div class="entry-content"><p>sudoセッションでコマンドを実行するためには、<a href="https://github.com/dcarley/rbenv-sudo">rbenv-sudo</a>を使えばよい。</p>
+<div class="entry-content"><p>sudoセッションでコマンドを実行するためには、<a href="https://github.com/dcarley/rbenv-sudo">rbenv-sudo</a>を使えばよい。</p>
+
+<!-- more -->
+
+
+<h2>事象</h2>
+
+<p><a href="https://github.com/github/hub">hub</a>をLinux環境(Ubuntu 14.04 LTS)にインストールした際に、以下のエラーが出た。
+<code>/usr/local/bin</code>にインストールするため、root権限が必要である。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake install
+</span><span class='line'>rake aborted!
+</span><span class='line'>Permission denied - /usr/local/bin/hub
+</span><span class='line'>/home/hina/devel/github/hub/Rakefile:121:in <span class="sb">`</span>block in &lt;top <span class="o">(</span>required<span class="o">)</span>&gt;<span class="err">&#39;</span>
+</span><span class='line'>Tasks: <span class="nv">TOP</span> <span class="o">=</span>&gt; install
+</span><span class='line'><span class="o">(</span>See full trace by running task with --trace<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>解決方法</h2>
+
+<h3>前提条件</h3>
+
+<p>rbenvがインストールされていること。</p>
+
+<ul>
+<li>rbenv 0.4.0-97-gfe0b243</li>
+</ul>
+
+
+<h3>手順</h3>
+
+<h4>rbenv-sudoをインストールする</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone git://github.com/dcarley/rbenv-sudo.git ~/.rbenv/plugins/rbenv-sudo
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>hubをインストールする</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rbenv sudo bundle <span class="nb">exec </span>rake install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>hubがインストールできたか確認する</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>which hub
+</span><span class='line'>/usr/local/bin/hub
+</span></code></pre></td></tr></table></div></figure>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/05/using-rbenv-sudo/">Read on &rarr;</a>
-    </footer>
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/04/creating-a-new-rails-project/">Creating a New Rails Project</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">thina</span></span>
+
+      
 
 
 
@@ -126,32 +177,40 @@
   
 
 
-<time datetime="2014-05-04T14:02:37+09:00" pubdate data-updated="true">May 4<span>th</span>, 2014</time>
-        
-      </p>
+<time datetime="2014-05-05T18:00:54+09:00" pubdate data-updated="true">May 5<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bundler/'>bundler</a>, <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/hub/'>hub</a>, <a class='category' href='/blog/categories/rbenv/'>rbenv</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://toshiyukihina.github.io/blog/2014/05/05/using-rbenv-sudo/" data-via="" data-counturl="http://toshiyukihina.github.io/blog/2014/05/05/using-rbenv-sudo/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
 
-
-  <div class="entry-content"><p>How to create a rails new project without tainting the global rails environment.</p>
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/04/creating-a-new-rails-project/" title="Previous Post: Creating a new rails project">&laquo; Creating a new rails project</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/04/creating-a-new-rails-project/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -159,7 +218,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/05/05/using-rbenv-sudo/">Sudoセッションで &#8216;Bundle Exec&#8217; を実行する</a>
+        <a href="/blog/2014/05/05/using-rbenv-sudo/">Sudoセッションで 'Bundle Exec' を実行する</a>
       </li>
     
       <li class="post">
@@ -180,7 +239,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/toshiyukihina">@toshiyukihina</a> on GitHub
@@ -212,6 +271,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
